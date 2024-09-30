@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="myproject"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="Payment">
+	<column name="PaymentId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Amount" type="REAL" />
+    
+     <column name="PaymentDate" type="DATE" />
+    
+ 	<column name="PaymentMethod" type="INTEGER" />
+   
+     <column name="Status" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="User">
+	<column name="UserId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Email" type="VARCHAR(250)" />
+    
+     <column name="Password" type="VARCHAR(250)" />
+    
+     <column name="ContactNo" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Host">
+	<column name="HostId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Email" type="VARCHAR(250)" />
+    
+     <column name="Phone" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Booking">
+	<column name="BookingId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="CheckInDate" type="VARCHAR(250)" />
+    
+     <column name="CheckOutDate" type="VARCHAR(250)" />
+    
+ 	<column name="Status" type="INTEGER" />
+   
+     <column name="TotalPrice" type="REAL" />
+    
+     <column name="NoOfAdults" type="INTEGER" />
+    
+     <column name="NoOfChildren" type="INTEGER" />
+    
+     <column name="WithPets" type="BOOLEAN" />
+    
+     <column name="DestinationCity" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Review">
+	<column name="ReviewId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Rating" type="INTEGER" />
+    
+     <column name="Comment" type="VARCHAR(250)" />
+    
+     <column name="DateOfReview" type="DATE" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Accommodation">
+	<column name="AccID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+ 	<column name="GeneralAcc" type="INTEGER" />
+   
+     <column name="Breakfast" type="BOOLEAN" />
+    
+     <column name="Parking" type="BOOLEAN" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Document">
+	<column name="DocId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="FileType" type="VARCHAR(250)" />
+    
+     <column name="FileName" type="VARCHAR(250)" />
+    
+ 	<column name="Content" type="BINARY"/>
+	<column name="DocFileType" type="VARCHAR(100)"/>
+	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Property">
+	<column name="PropertyId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="PropertyName" type="VARCHAR(250)" />
+    
+     <column name="Country" type="VARCHAR(250)" />
+    
+     <column name="PropertyType" type="VARCHAR(250)" />
+    
+     <column name="PricePerNight" type="REAL" />
+    
+     <column name="City" type="VARCHAR(250)" />
+    
+     <column name="PostCode" type="VARCHAR(250)" />
+    
+     <column name="StreetName" type="VARCHAR(250)" />
+    
+     <column name="Location" type="VARCHAR(250)" />
+    
+     <column name="PropertySize" type="VARCHAR(250)" />
+    
+     <column name="Availability" type="BOOLEAN" />
+    
+  	<column name="Details_NoOfBedrooms" type="INTEGER"/>
+	<column name="Details_NoOfLivingRoom" type="INTEGER"/>
+	<column name="Details_OtherSpaces" type="INTEGER"/>
+	<column name="Details_NoOfGuests" type="INTEGER"/>
+	<column name="Details_ChildrenAllowed" type="BOOLEAN"/>
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="UserSchedulesBookings">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="UserId" type="INTEGER" />
+	<column name="BookingId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PropertyAccommodationDetails">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="PropertyId" type="INTEGER" />
+	<column name="AccID" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PropertyPropertyImages">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="PropertyId" type="INTEGER" />
+	<column name="DocId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="HostListProperties">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="HostId" type="INTEGER" />
+	<column name="PropertyId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PropertyPropertyReviews">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="PropertyId" type="INTEGER" />
+	<column name="ReviewId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="UserUserFeedback">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="UserId" type="INTEGER" />
+	<column name="ReviewId" type="INTEGER" />
+</createTable>
+
+ 
+	<addForeignKeyConstraint baseTableName="UserSchedulesBookings" baseTableSchemaName="${schemaName}"  baseColumnNames="UserId" constraintName="Booking_UserId_fk"
+	                                  referencedTableName="User" referencedTableSchemaName="${schemaName}" referencedColumnNames="UserId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="UserSchedulesBookings" baseTableSchemaName="${schemaName}"  baseColumnNames="BookingId" constraintName="Booking_BookingId_fk"
+	                                  referencedTableName="Booking" referencedTableSchemaName="${schemaName}" referencedColumnNames="BookingId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PropertyAccommodationDetails" baseTableSchemaName="${schemaName}"  baseColumnNames="PropertyId" constraintName="Accommodation_PropertyId_fk"
+	                                  referencedTableName="Property" referencedTableSchemaName="${schemaName}" referencedColumnNames="PropertyId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PropertyAccommodationDetails" baseTableSchemaName="${schemaName}"  baseColumnNames="AccID" constraintName="Accommodation_AccID_fk"
+	                                  referencedTableName="Accommodation" referencedTableSchemaName="${schemaName}" referencedColumnNames="AccID"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PropertyPropertyImages" baseTableSchemaName="${schemaName}"  baseColumnNames="PropertyId" constraintName="Document_PropertyId_fk"
+	                                  referencedTableName="Property" referencedTableSchemaName="${schemaName}" referencedColumnNames="PropertyId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PropertyPropertyImages" baseTableSchemaName="${schemaName}"  baseColumnNames="DocId" constraintName="Document_DocId_fk"
+	                                  referencedTableName="Document" referencedTableSchemaName="${schemaName}" referencedColumnNames="DocId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="HostListProperties" baseTableSchemaName="${schemaName}"  baseColumnNames="HostId" constraintName="Property_HostId_fk"
+	                                  referencedTableName="Host" referencedTableSchemaName="${schemaName}" referencedColumnNames="HostId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="HostListProperties" baseTableSchemaName="${schemaName}"  baseColumnNames="PropertyId" constraintName="Property_PropertyId_fk"
+	                                  referencedTableName="Property" referencedTableSchemaName="${schemaName}" referencedColumnNames="PropertyId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PropertyPropertyReviews" baseTableSchemaName="${schemaName}"  baseColumnNames="PropertyId" constraintName="Review_PropertyId_fk"
+	                                  referencedTableName="Property" referencedTableSchemaName="${schemaName}" referencedColumnNames="PropertyId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PropertyPropertyReviews" baseTableSchemaName="${schemaName}"  baseColumnNames="ReviewId" constraintName="Review_ReviewId_fk"
+	                                  referencedTableName="Review" referencedTableSchemaName="${schemaName}" referencedColumnNames="ReviewId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="UserUserFeedback" baseTableSchemaName="${schemaName}"  baseColumnNames="UserId" constraintName="Review_UserId_fk"
+	                                  referencedTableName="User" referencedTableSchemaName="${schemaName}" referencedColumnNames="UserId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="UserUserFeedback" baseTableSchemaName="${schemaName}"  baseColumnNames="ReviewId" constraintName="Review_ReviewId_fk"
+	                                  referencedTableName="Review" referencedTableSchemaName="${schemaName}" referencedColumnNames="ReviewId"/>
+ 
+	
+  
+	<addColumn tableName="User" schemaName="${schemaName}">
+	    <column name="UserProfilePicture" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="User" baseColumnNames="UserProfilePicture" baseTableSchemaName="${schemaName}" constraintName="User_ProfilePicture_fk" referencedTableName="Document"
+	                                 referencedColumnNames="DocId" referencedTableSchemaName="${schemaName}"/>
+ 
+  
+	<addColumn tableName="Booking" schemaName="${schemaName}">
+	    <column name="BookingSelectedProperty" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="Booking" baseColumnNames="BookingSelectedProperty" baseTableSchemaName="${schemaName}" constraintName="Booking_SelectedProperty_fk" referencedTableName="Property"
+	                                 referencedColumnNames="PropertyId" referencedTableSchemaName="${schemaName}"/>
+ 
+
+	<addColumn tableName="Booking" schemaName="${schemaName}">
+	    <column name="BookingBookingPayment" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="Booking" baseColumnNames="BookingBookingPayment" baseTableSchemaName="${schemaName}" constraintName="Booking_BookingPayment_fk" referencedTableName="Payment"
+	                                 referencedColumnNames="PaymentId" referencedTableSchemaName="${schemaName}"/>
+ 
+    	    </changeSet>
+</databaseChangeLog>

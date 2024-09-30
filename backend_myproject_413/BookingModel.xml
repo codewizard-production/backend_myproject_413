@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Review">
+                <Key>
+                    <PropertyRef Name="ReviewId"/>
+                </Key>
+                <Property Name="ReviewId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Rating" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Comment" Type="Edm.String" isUnique="false"/>
+                <Property Name="DateOfReview" Type="Edm.Date" isUnique="false"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Host">
+                <Key>
+                    <PropertyRef Name="HostId"/>
+                </Key>
+                <Property Name="HostId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Name" Type="Edm.String" isUnique="false"/>
+                <Property Name="Email" Type="Edm.String" isUnique="false"/>
+                <Property Name="Phone" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="ListProperties" Type="Collection(Model.Property)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Property">
+                <Key>
+                    <PropertyRef Name="PropertyId"/>
+                </Key>
+                <Property Name="PropertyId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="PropertyName" Type="Edm.String" isUnique="false"/>
+                <Property Name="Country" Type="Edm.String" isUnique="false"/>
+                <Property Name="PropertyType" Type="Edm.String" isUnique="false"/>
+                <Property Name="PricePerNight" Type="Edm.Single" isUnique="false"/>
+                <Property Name="City" Type="Edm.String" isUnique="false"/>
+                <Property Name="PostCode" Type="Edm.String" isUnique="false"/>
+                <Property Name="StreetName" Type="Edm.String" isUnique="false"/>
+                <Property Name="Location" Type="Edm.String" isUnique="false"/>
+                <Property Name="PropertySize" Type="Edm.String" isUnique="false"/>
+                <Property Name="Availability" Type="Edm.Boolean" isUnique="false"/>
+                <Property Name="Details" Type="Model.PropertyDetails" isUnique="false"/>
+                <NavigationProperty Name="PropertyReviews" Type="Collection(Model.Review)"/>
+                <NavigationProperty Name="PropertyImages" Type="Collection(Model.Document)"/>
+                <NavigationProperty Name="AccommodationDetails" Type="Collection(Model.Accommodation)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Payment">
+                <Key>
+                    <PropertyRef Name="PaymentId"/>
+                </Key>
+                <Property Name="PaymentId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Amount" Type="Edm.Single" isUnique="false"/>
+                <Property Name="PaymentDate" Type="Edm.Date" isUnique="false"/>
+                <Property Name="PaymentMethod" Type="Model.PaymentMode" isUnique="false"/>
+                <Property Name="Status" Type="Edm.String" isUnique="false"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Accommodation">
+                <Key>
+                    <PropertyRef Name="AccID"/>
+                </Key>
+                <Property Name="AccID" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="GeneralAcc" Type="Model.General" isUnique="false"/>
+                <Property Name="Breakfast" Type="Edm.Boolean" isUnique="false"/>
+                <Property Name="Parking" Type="Edm.Boolean" isUnique="false"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Booking">
+                <Key>
+                    <PropertyRef Name="BookingId"/>
+                </Key>
+                <Property Name="BookingId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="CheckInDate" Type="Edm.String" isUnique="false"/>
+                <Property Name="CheckOutDate" Type="Edm.String" isUnique="false"/>
+                <Property Name="Status" Type="Model.BookingStatus" isUnique="false"/>
+                <Property Name="TotalPrice" Type="Edm.Single" isUnique="false"/>
+                <Property Name="NoOfAdults" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="NoOfChildren" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="WithPets" Type="Edm.Boolean" isUnique="false"/>
+                <Property Name="DestinationCity" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="SelectedProperty" Type="Model.Property"/>
+                <NavigationProperty Name="BookingPayment" Type="Model.Payment"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="User">
+                <Key>
+                    <PropertyRef Name="UserId"/>
+                </Key>
+                <Property Name="UserId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Name" Type="Edm.String" isUnique="false"/>
+                <Property Name="Email" Type="Edm.String" isUnique="false"/>
+                <Property Name="Password" Type="Edm.String" isUnique="false"/>
+                <Property Name="ContactNo" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="SchedulesBookings" Type="Collection(Model.Booking)"/>
+                <NavigationProperty Name="UserFeedback" Type="Collection(Model.Review)"/>
+                <NavigationProperty Name="ProfilePicture" Type="Model.Document"/>
+            </EntityType>
+            <EntityType HasStream="true" Name="Document">
+                <Key>
+                    <PropertyRef Name="DocId"/>
+                </Key>
+                <Property Name="DocId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="FileType" Type="Edm.String" isUnique="false"/>
+                <Property Name="FileName" Type="Edm.String" isUnique="false"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Reviews" EntityType="Model.Review"/>
+                <EntitySet Name="Hosts" EntityType="Model.Host">
+                    <NavigationPropertyBinding Path="ListProperties" Target="Properties"/>
+                </EntitySet>
+                <EntitySet Name="Properties" EntityType="Model.Property">
+                    <NavigationPropertyBinding Path="PropertyReviews" Target="Reviews"/>
+                    <NavigationPropertyBinding Path="PropertyImages" Target="Documents"/>
+                    <NavigationPropertyBinding Path="AccommodationDetails" Target="Accommodations"/>
+                </EntitySet>
+                <EntitySet Name="Payments" EntityType="Model.Payment"/>
+                <EntitySet Name="Accommodations" EntityType="Model.Accommodation"/>
+                <EntitySet Name="Bookings" EntityType="Model.Booking">
+                    <NavigationPropertyBinding Path="SelectedProperty" Target="Properties"/>
+                    <NavigationPropertyBinding Path="BookingPayment" Target="Payments"/>
+                </EntitySet>
+                <EntitySet Name="Users" EntityType="Model.User">
+                    <NavigationPropertyBinding Path="SchedulesBookings" Target="Bookings"/>
+                    <NavigationPropertyBinding Path="UserFeedback" Target="Reviews"/>
+                    <NavigationPropertyBinding Path="ProfilePicture" Target="Documents"/>
+                </EntitySet>
+                <EntitySet Name="Documents" EntityType="Model.Document"/>
+            </EntityContainer>
+            <ComplexType Name="PropertyDetails">
+                <Property Name="NoOfBedrooms" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="NoOfLivingRoom" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="OtherSpaces" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="NoOfGuests" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="ChildrenAllowed" Type="Edm.Boolean" isUnique="false"/>
+            </ComplexType>
+            <EnumType Name="General">
+                <Member Name="AirConditioning" Value="0"/>
+                <Member Name="FreeWifi" Value="1"/>
+                <Member Name="Heating" Value="2"/>
+                <Member Name="EVCharigng" Value="3"/>
+                <Member Name="Kitchen" Value="4"/>
+                <Member Name="Balcony" Value="5"/>
+                <Member Name="TV" Value="6"/>
+                <Member Name="Terrace" Value="7"/>
+                <Member Name="Other" Value="8"/>
+            </EnumType>
+            <EnumType Name="PaymentMode">
+                <Member Name="CreditCard" Value="0"/>
+                <Member Name="DebitCard" Value="1"/>
+                <Member Name="Cash" Value="2"/>
+                <Member Name="BankTransfer" Value="3"/>
+                <Member Name="UPI" Value="4"/>
+            </EnumType>
+            <EnumType Name="BookingStatus">
+                <Member Name="Reserved" Value="0"/>
+                <Member Name="Booked" Value="1"/>
+                <Member Name="Cancelled" Value="2"/>
+                <Member Name="Completed" Value="3"/>
+            </EnumType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
